@@ -58,10 +58,10 @@ int main() {
 	//Launch nr_threads threads:
 	for (int i = 0; i< nr_threads; i++) {
 		//call using mutex
-		//threads.push_back(std::thread(dot_product_using_mutex, std::ref(v1), std::ref(v2), std::ref(result_mutex), limits[i], limits[i+1]));
+		threads.push_back(std::thread(dot_product_using_mutex, std::ref(v1), std::ref(v2), std::ref(result_mutex), limits[i], limits[i+1]));
 
 		//call using atomic operations
-		threads.push_back(std::thread(dot_product_using_atomic_ops, std::ref(v1), std::ref(v2), std::ref(result_atomic), limits[i], limits[i+1]));		
+		//threads.push_back(std::thread(dot_product_using_atomic_ops, std::ref(v1), std::ref(v2), std::ref(result_atomic), limits[i], limits[i+1]));		
 	}
 	//Join the threads with the main thread
 	for (auto &t : threads) {
@@ -69,11 +69,11 @@ int main() {
 	}
 
 	//Print the result using mutex
-	//std::cout<<result_atomic<<std::endl;
+	std::cout<<result_mutex<<std::endl;
 
 
 	//Print the result using atomic operations
-	std::cout<<result_atomic<<std::endl;
+	//std::cout<<result_atomic<<std::endl;
 
 	return 0;
 }
