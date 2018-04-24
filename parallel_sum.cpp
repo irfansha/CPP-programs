@@ -1,4 +1,4 @@
-/* This program calculates the sum of all elements in the array.
+/* This program calculates the sum of all elements in the array both parallely and serially.
    
  
    Compile with:
@@ -42,7 +42,7 @@ void print(int ar[]) {
 	std::cout<<'\n';
 }
 
-//finding boundaries for a specific thread
+//finding boundaries for a specific thread, last thread is given the remaining chunk.
 void chunk(int i,int &intial_b,int &final_b) {
 	intial_b = i*chunk_size;
 	final_b = intial_b + chunk_size -1;
@@ -59,8 +59,7 @@ void serial_sum(int ar[], int &serial_result) {
 
 //adding values within the boundaries of a given thread and adding the local_sum to the global result.
 void parallel_sum(int i, int ar[], int &result) {
-	int intial_b;
-	int final_b;
+	int intial_b, final_b;
 	int local_sum = 0;
 	chunk(i, intial_b,final_b);
 	for (int pos = intial_b; pos<= final_b; pos++){
@@ -74,7 +73,6 @@ void parallel_sum(int i, int ar[], int &result) {
 
 int main() {
 	int ar[array_size];
-	int intial_b, final_b;
 	int parallel_result = 0;
 	int serial_result = 0;
 
